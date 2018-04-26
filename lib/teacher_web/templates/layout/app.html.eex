@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Hello Teacher!</title>
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+  </head>
+
+  <body>
+    <div class="container">
+
+      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+
+      <main role="main">
+        <%= link "Home", to: movie_path(@conn, :index) %> |
+        <%= if signed_in?(@conn) do %>
+          <%= link "Sign out", to: session_path(@conn, :delete), method: :delete %>
+        <% else %>
+          <%= link "Sign In", to: session_path(@conn, :new) %>
+          |
+          <%= link "Sign up", to: user_path(@conn, :new) %>
+        <% end %>
+        <%= render @view_module, @view_template, assigns %>
+      </main>
+
+    </div> <!-- /container -->
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+  </body>
+</html>
